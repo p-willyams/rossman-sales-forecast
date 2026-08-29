@@ -47,8 +47,8 @@ WITH tb_comp_promo_date AS (
 tb_promo_comp AS (
     SELECT *,
         CASE 
-                WHEN DateCompetition <= substr('2015-05-01',1,7) THEN 1
-                WHEN DateCompetition > substr('2015-05-01',1,7) THEN 0
+                WHEN DateCompetition <= substr('{data_ref}',1,7) THEN 1
+                WHEN DateCompetition > substr('{data_ref}',1,7) THEN 0
                 ELSE NULL
         END AS CompetitionOpen,
         
@@ -56,20 +56,20 @@ tb_promo_comp AS (
                 WHEN Promo2SinceYear IS NOT NULL
                 AND Promo2FirstMonth IS NOT NULL
                 AND (
-                    CAST (strftime('%Y', '2015-05-01') AS INTEGER) > Promo2SinceYear 
+                    CAST (strftime('%Y', '{data_ref}') AS INTEGER) > Promo2SinceYear 
                     OR (
-                        CAST (strftime('%Y', '2015-05-01') AS INTEGER) = Promo2SinceYear 
-                        AND CAST (strftime('%m', '2015-05-01') AS INTEGER) >= Promo2FirstMonth
+                        CAST (strftime('%Y', '{data_ref}') AS INTEGER) = Promo2SinceYear 
+                        AND CAST (strftime('%m', '{data_ref}') AS INTEGER) >= Promo2FirstMonth
                     )
                     )
                 THEN 1
                 WHEN Promo2SinceYear IS NOT NULL
                 AND Promo2FirstMonth IS NOT NULL
                 AND (
-                    CAST (strftime('%Y', '2015-05-01') AS INTEGER) < Promo2SinceYear
+                    CAST (strftime('%Y', '{data_ref}') AS INTEGER) < Promo2SinceYear
                     OR (
-                        CAST (strftime('%Y', '2015-05-01') AS INTEGER) = Promo2SinceYear 
-                        AND CAST (strftime('%m', '2015-05-01') AS INTEGER) < Promo2FirstMonth
+                        CAST (strftime('%Y', '{data_ref}') AS INTEGER) = Promo2SinceYear 
+                        AND CAST (strftime('%m', '{data_ref}') AS INTEGER) < Promo2FirstMonth
                     )
                 )
                 THEN 0
@@ -81,11 +81,11 @@ tb_promo_comp AS (
                 AND Promo2FirstMonth IS NOT NULL
                 AND Promo2LastMonth IS NOT NULL
                 AND 
-                    CAST(strftime('%Y', '2015-05-01') AS INTEGER) = Promo2SinceYear
+                    CAST(strftime('%Y', '{data_ref}') AS INTEGER) = Promo2SinceYear
                 AND 
-                    CAST(strftime('%m', '2015-05-01') AS INTEGER) >= Promo2FirstMonth
+                    CAST(strftime('%m', '{data_ref}') AS INTEGER) >= Promo2FirstMonth
                 AND 
-                    CAST(strftime('%m', '2015-05-01') AS INTEGER) <= Promo2LastMonth
+                    CAST(strftime('%m', '{data_ref}') AS INTEGER) <= Promo2LastMonth
                 THEN 1
                 ELSE 0
         END AS Promo2Open,
@@ -98,18 +98,14 @@ tb_promo_comp AS (
 )
 
 SELECT 
-    '2015-05-01' AS DtRef,
+    '{data_ref}' AS DtRef,
     t1.Store AS IdStore,
-    t1.DateCompetition,
-    t1.Promo2FirstMonth,
-    t1.Promo2LastMonth,
-    t1.Promo2SinceYear,
     t1.CompetitionOpen,
     t1.Promo2Open,
     t2.StoreType,
     t2.Assortment,
     t2.CompetitionDistance
-       
+
 FROM tb_promo_comp AS t1
 
 LEFT JOIN store AS t2
