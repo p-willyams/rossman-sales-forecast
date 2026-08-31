@@ -3,8 +3,8 @@ WITH tb_base_ativa AS (
 
     SELECT *
     FROM sales
-    WHERE Date < '2015-05-01'
-      AND Date >= DATE('2015-05-01', '-84 Day')
+    WHERE Date < '{data_ref}'
+      AND Date >= DATE('{data_ref}', '-84 Day')
 
 ),
 
@@ -13,96 +13,96 @@ tb_customers_qtd AS (
     SELECT 
             t1.Store,
 
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-7 Day') THEN t1.Customers END) AS  QtdCustomers7d,
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-14 Day') THEN t1.Customers END) AS QtdCustomers14d,
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-28 Day') THEN t1.Customers END) AS QtdCustomers28d,
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-42 Day') THEN t1.Customers END) AS QtdCustomers42d,
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-56 Day') THEN t1.Customers END) AS QtdCustomers56d,
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-84 Day') THEN t1.Customers END) AS QtdCustomers84d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-7 Day') THEN t1.Customers END) AS  QtdCustomers7d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-14 Day') THEN t1.Customers END) AS QtdCustomers14d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-28 Day') THEN t1.Customers END) AS QtdCustomers28d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-42 Day') THEN t1.Customers END) AS QtdCustomers42d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-56 Day') THEN t1.Customers END) AS QtdCustomers56d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-84 Day') THEN t1.Customers END) AS QtdCustomers84d,
 
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-7 Day') AND t1.Open = 1 THEN t1.Customers END) AS  AvgCustomers7d,
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-14 Day') AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomers14d,
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-28 Day') AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomers28d,
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-42 Day') AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomers42d,
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-56 Day') AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomers56d,
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-84 Day') AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomers84d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-7 Day') AND t1.Open = 1 THEN t1.Customers END) AS  AvgCustomers7d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-14 Day') AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomers14d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-28 Day') AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomers28d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-42 Day') AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomers42d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-56 Day') AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomers56d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-84 Day') AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomers84d,
 
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-7 Day') AND t1.Open = 1 THEN t1.Customers END) AS MinCustomers7d,
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-14 Day') AND t1.Open = 1 THEN t1.Customers END) AS MinCustomers14d,
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-28 Day') AND t1.Open = 1 THEN t1.Customers END) AS MinCustomers28d,
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-42 Day') AND t1.Open = 1 THEN t1.Customers END) AS MinCustomers42d,
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-56 Day') AND t1.Open = 1 THEN t1.Customers END) AS MinCustomers56d,
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-84 Day') AND t1.Open = 1 THEN t1.Customers END) AS MinCustomers84d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-7 Day') AND t1.Open = 1 THEN t1.Customers END) AS MinCustomers7d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-14 Day') AND t1.Open = 1 THEN t1.Customers END) AS MinCustomers14d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-28 Day') AND t1.Open = 1 THEN t1.Customers END) AS MinCustomers28d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-42 Day') AND t1.Open = 1 THEN t1.Customers END) AS MinCustomers42d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-56 Day') AND t1.Open = 1 THEN t1.Customers END) AS MinCustomers56d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-84 Day') AND t1.Open = 1 THEN t1.Customers END) AS MinCustomers84d,
     
 
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-7 Day') THEN t1.Customers END) AS  MaxCustomers7d,
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-14 Day') THEN t1.Customers END) AS MaxCustomers14d,
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-28 Day') THEN t1.Customers END) AS MaxCustomers28d,
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-42 Day') THEN t1.Customers END) AS MaxCustomers42d,
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-56 Day') THEN t1.Customers END) AS MaxCustomers56d,
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-84 Day') THEN t1.Customers END) AS MaxCustomers84d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-7 Day') THEN t1.Customers END) AS  MaxCustomers7d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-14 Day') THEN t1.Customers END) AS MaxCustomers14d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-28 Day') THEN t1.Customers END) AS MaxCustomers28d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-42 Day') THEN t1.Customers END) AS MaxCustomers42d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-56 Day') THEN t1.Customers END) AS MaxCustomers56d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-84 Day') THEN t1.Customers END) AS MaxCustomers84d,
 
 
 
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-7 Day') AND t1.Promo = 1 THEN t1.Customers END) AS  QtdCustomersPromo7d,
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-14 Day') AND t1.Promo = 1 THEN t1.Customers END) AS QtdCustomersPromo14d,
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-28 Day') AND t1.Promo = 1 THEN t1.Customers END) AS QtdCustomersPromo28d,
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-42 Day') AND t1.Promo = 1 THEN t1.Customers END) AS QtdCustomersPromo42d,
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-56 Day') AND t1.Promo = 1 THEN t1.Customers END) AS QtdCustomersPromo56d,
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-84 Day') AND t1.Promo = 1 THEN t1.Customers END) AS QtdCustomersPromo84d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-7 Day') AND t1.Promo = 1 THEN t1.Customers END) AS  QtdCustomersPromo7d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-14 Day') AND t1.Promo = 1 THEN t1.Customers END) AS QtdCustomersPromo14d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-28 Day') AND t1.Promo = 1 THEN t1.Customers END) AS QtdCustomersPromo28d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-42 Day') AND t1.Promo = 1 THEN t1.Customers END) AS QtdCustomersPromo42d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-56 Day') AND t1.Promo = 1 THEN t1.Customers END) AS QtdCustomersPromo56d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-84 Day') AND t1.Promo = 1 THEN t1.Customers END) AS QtdCustomersPromo84d,
 
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-7 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS  AvgCustomersPromo7d,
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-14 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersPromo14d,
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-28 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersPromo28d,
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-42 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersPromo42d,
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-56 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersPromo56d,
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-84 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersPromo84d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-7 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS  AvgCustomersPromo7d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-14 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersPromo14d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-28 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersPromo28d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-42 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersPromo42d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-56 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersPromo56d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-84 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersPromo84d,
 
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-7 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersPromo7d,
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-14 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersPromo14d,
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-28 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersPromo28d,
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-42 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersPromo42d,
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-56 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersPromo56d,
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-84 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersPromo84d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-7 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersPromo7d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-14 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersPromo14d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-28 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersPromo28d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-42 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersPromo42d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-56 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersPromo56d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-84 Day') AND t1.Promo = 1 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersPromo84d,
     
 
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-7 Day') AND t1.Promo = 1 THEN t1.Customers END) AS  MaxCustomersPromo7d,
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-14 Day') AND t1.Promo = 1 THEN t1.Customers END) AS MaxCustomersPromo14d,
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-28 Day') AND t1.Promo = 1 THEN t1.Customers END) AS MaxCustomersPromo28d,
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-42 Day') AND t1.Promo = 1 THEN t1.Customers END) AS MaxCustomersPromo42d,
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-56 Day') AND t1.Promo = 1 THEN t1.Customers END) AS MaxCustomersPromo56d,
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-84 Day') AND t1.Promo = 1 THEN t1.Customers END) AS MaxCustomersPromo84d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-7 Day') AND t1.Promo = 1 THEN t1.Customers END) AS  MaxCustomersPromo7d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-14 Day') AND t1.Promo = 1 THEN t1.Customers END) AS MaxCustomersPromo14d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-28 Day') AND t1.Promo = 1 THEN t1.Customers END) AS MaxCustomersPromo28d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-42 Day') AND t1.Promo = 1 THEN t1.Customers END) AS MaxCustomersPromo42d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-56 Day') AND t1.Promo = 1 THEN t1.Customers END) AS MaxCustomersPromo56d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-84 Day') AND t1.Promo = 1 THEN t1.Customers END) AS MaxCustomersPromo84d,
 
 
             
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-7 Day') AND t1.Promo = 0 THEN t1.Customers END) AS  QtdCustomersNoPromo7d,
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-14 Day') AND t1.Promo = 0 THEN t1.Customers END) AS QtdCustomersNoPromo14d,
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-28 Day') AND t1.Promo = 0 THEN t1.Customers END) AS QtdCustomersNoPromo28d,
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-42 Day') AND t1.Promo = 0 THEN t1.Customers END) AS QtdCustomersNoPromo42d,
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-56 Day') AND t1.Promo = 0 THEN t1.Customers END) AS QtdCustomersNoPromo56d,
-            SUM(CASE WHEN t1.Date >= DATE('2015-05-01', '-84 Day') AND t1.Promo = 0 THEN t1.Customers END) AS QtdCustomersNoPromo84d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-7 Day') AND t1.Promo = 0 THEN t1.Customers END) AS  QtdCustomersNoPromo7d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-14 Day') AND t1.Promo = 0 THEN t1.Customers END) AS QtdCustomersNoPromo14d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-28 Day') AND t1.Promo = 0 THEN t1.Customers END) AS QtdCustomersNoPromo28d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-42 Day') AND t1.Promo = 0 THEN t1.Customers END) AS QtdCustomersNoPromo42d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-56 Day') AND t1.Promo = 0 THEN t1.Customers END) AS QtdCustomersNoPromo56d,
+            SUM(CASE WHEN t1.Date >= DATE('{data_ref}', '-84 Day') AND t1.Promo = 0 THEN t1.Customers END) AS QtdCustomersNoPromo84d,
 
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-7 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS  AvgCustomersNoPromo7d,
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-14 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersNoPromo14d,
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-28 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersNoPromo28d,
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-42 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersNoPromo42d,
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-56 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersNoPromo56d,
-            AVG(CASE WHEN t1.Date >= DATE('2015-05-01', '-84 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersNoPromo84d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-7 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS  AvgCustomersNoPromo7d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-14 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersNoPromo14d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-28 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersNoPromo28d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-42 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersNoPromo42d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-56 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersNoPromo56d,
+            AVG(CASE WHEN t1.Date >= DATE('{data_ref}', '-84 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS AvgCustomersNoPromo84d,
 
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-7 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS  MinCustomersNoPromo7d,
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-14 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersNoPromo14d,
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-28 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersNoPromo28d,
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-42 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersNoPromo42d,
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-56 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersNoPromo56d,
-            MIN(CASE WHEN t1.Date >= DATE('2015-05-01', '-84 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersNoPromo84d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-7 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS  MinCustomersNoPromo7d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-14 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersNoPromo14d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-28 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersNoPromo28d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-42 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersNoPromo42d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-56 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersNoPromo56d,
+            MIN(CASE WHEN t1.Date >= DATE('{data_ref}', '-84 Day') AND t1.Promo = 0 AND t1.Open = 1 THEN t1.Customers END) AS MinCustomersNoPromo84d,
     
 
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-7 Day') AND t1.Promo = 0 THEN t1.Customers END) AS  MaxCustomersNoPromo7d,
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-14 Day') AND t1.Promo = 0 THEN t1.Customers END) AS MaxCustomersNoPromo14d,
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-28 Day') AND t1.Promo = 0 THEN t1.Customers END) AS MaxCustomersNoPromo28d,
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-42 Day') AND t1.Promo = 0 THEN t1.Customers END) AS MaxCustomersNoPromo42d,
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-56 Day') AND t1.Promo = 0 THEN t1.Customers END) AS MaxCustomersNoPromo56d,
-            MAX(CASE WHEN t1.Date >= DATE('2015-05-01', '-84 Day') AND t1.Promo = 0 THEN t1.Customers END) AS MaxCustomersNoPromo84d
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-7 Day') AND t1.Promo = 0 THEN t1.Customers END) AS  MaxCustomersNoPromo7d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-14 Day') AND t1.Promo = 0 THEN t1.Customers END) AS MaxCustomersNoPromo14d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-28 Day') AND t1.Promo = 0 THEN t1.Customers END) AS MaxCustomersNoPromo28d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-42 Day') AND t1.Promo = 0 THEN t1.Customers END) AS MaxCustomersNoPromo42d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-56 Day') AND t1.Promo = 0 THEN t1.Customers END) AS MaxCustomersNoPromo56d,
+            MAX(CASE WHEN t1.Date >= DATE('{data_ref}', '-84 Day') AND t1.Promo = 0 THEN t1.Customers END) AS MaxCustomersNoPromo84d
 
     FROM tb_base_ativa AS t1
     GROUP BY t1.Store
