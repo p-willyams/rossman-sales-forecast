@@ -1,9 +1,9 @@
 """
 Para este projeto, será utilizado o seguinte range de datas:
 
-Data inicial:  26/03/2013
+Data inicial:  2013-03-26
 
-Data final: 19/06/2015
+Data final: 2015-07-31
 
 Como fazer a ingestão dos dados no banco:
 
@@ -12,7 +12,7 @@ O script irá ler a query SQL referente à tabela, executar para cada dia no int
 e inserir o resultado no banco feature_store.db.
 
 Exemplo de uso:
-    python ingestion.py --table vendas --start_date 2015-07-15 --end_date 2015-07-20
+    python ingestion.py --table clientes --start_date 2013-03-26 --end_date 2015-07-31
 
 A query SQL para a tabela esperada deve estar em um arquivo chamado fs_{table}.sql na pasta deste script.
 """

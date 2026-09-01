@@ -110,7 +110,9 @@ tb_customers_qtd AS (
 )
     
 SELECT
-       Store,
+       '{data_ref}' AS DtRef,
+       
+       Store AS IdStore, 
 
        QtdCustomers7d,
        QtdCustomers14d,
