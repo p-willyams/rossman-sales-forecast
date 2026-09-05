@@ -1,3 +1,6 @@
+
+<img width="1920" height="1080" alt="PATRYCK WILLYAMS(3)" src="https://github.com/user-attachments/assets/8b367eb6-c8ce-4445-8bba-a304fd490b80" />
+
 > :information_source: Para a versão em inglês deste README, veja o arquivo **README.md**.
 
 ## Visão Geral do Projeto
