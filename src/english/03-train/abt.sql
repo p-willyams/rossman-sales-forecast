@@ -1,0 +1,108 @@
+-- Create intermediate tables with date filtering and target
+WITH tb_sales AS (
+    SELECT * 
+    FROM fs_sales 
+    WHERE DtRef <= '2015-06-19'
+),
+tb_target AS (
+    SELECT 
+        t1.IdStore,
+        t1.DtRef,
+        t2.QtdSales42d AS Target
+    FROM tb_sales AS t1
+    LEFT JOIN fs_sales AS t2
+        ON t1.IdStore = t2.IdStore
+        AND DATE(t1.DtRef, '+42 day') = t2.DtRef
+)
+
+SELECT 
+    t1.DtRef,
+    t1.IdStore,
+
+    -- Historical sales features
+    t2.QtdSales7d,  t2.QtdSales14d,  t2.QtdSales28d,  t2.QtdSales42d,  t2.QtdSales56d,  t2.QtdSales84d,
+    t2.AvgSales7d,  t2.AvgSales14d,  t2.AvgSales28d,  t2.AvgSales42d,  t2.AvgSales56d,  t2.AvgSales84d,
+    t2.MinSales7d,  t2.MinSales14d,  t2.MinSales28d,  t2.MinSales42d,  t2.MinSales56d,  t2.MinSales84d,
+    t2.MaxSales7d,  t2.MaxSales14d,  t2.MaxSales28d,  t2.MaxSales42d,  t2.MaxSales56d,  t2.MaxSales84d,
+
+    -- Sales during promotion
+    t2.QtdSalesPromo7d, t2.QtdSalesPromo14d, t2.QtdSalesPromo28d, t2.QtdSalesPromo42d, t2.QtdSalesPromo56d, t2.QtdSalesPromo84d,
+    t2.AvgSalesPromo7d, t2.AvgSalesPromo14d, t2.AvgSalesPromo28d, t2.AvgSalesPromo42d, t2.AvgSalesPromo56d, t2.AvgSalesPromo84d,
+    t2.MinSalesPromo7d, t2.MinSalesPromo14d, t2.MinSalesPromo28d, t2.MinSalesPromo42d, t2.MinSalesPromo56d, t2.MinSalesPromo84d,
+    t2.MaxSalesPromo7d, t2.MaxSalesPromo14d, t2.MaxSalesPromo28d, t2.MaxSalesPromo42d, t2.MaxSalesPromo56d, t2.MaxSalesPromo84d,
+
+    -- Sales without promotion
+    t2.QtdSalesNoPromo7d, t2.QtdSalesNoPromo14d, t2.QtdSalesNoPromo28d, t2.QtdSalesNoPromo42d, t2.QtdSalesNoPromo56d, t2.QtdSalesNoPromo84d,
+    t2.AvgSalesNoPromo7d, t2.AvgSalesNoPromo14d, t2.AvgSalesNoPromo28d, t2.AvgSalesNoPromo42d, t2.AvgSalesNoPromo56d, t2.AvgSalesNoPromo84d,
+    t2.MinSalesNoPromo7d, t2.MinSalesNoPromo14d, t2.MinSalesNoPromo28d, t2.MinSalesNoPromo42d, t2.MinSalesNoPromo56d, t2.MinSalesNoPromo84d,
+    t2.MaxSalesNoPromo7d, t2.MaxSalesNoPromo14d, t2.MaxSalesNoPromo28d, t2.MaxSalesNoPromo42d, t2.MaxSalesNoPromo56d, t2.MaxSalesNoPromo84d,
+
+    -- Sales growth and related metrics
+    t2.Growth_AvgSales_7d_vs_28d, t2.Growth_AvgSales_14d_vs_28d, t2.Growth_AvgSales_28d_vs_56d, t2.Growth_AvgSales_42d_vs_84d,
+    t2.LiftSalesPromo7d, t2.LiftSalesPromo14d, t2.LiftSalesPromo28d, t2.LiftSalesPromo42d, t2.LiftSalesPromo56d, t2.LiftSalesPromo84d,
+    t2.SalesGrowth42dYearAgo,
+
+    -- Sales per customer
+    t2.SalesPerCustomer7d, t2.SalesPerCustomer14d, t2.SalesPerCustomer28d, t2.SalesPerCustomer42d, t2.SalesPerCustomer56d, t2.SalesPerCustomer84d,
+    t2.AvgSalesPerCustomer7d, t2.AvgSalesPerCustomer14d, t2.AvgSalesPerCustomer28d, t2.AvgSalesPerCustomer42d, t2.AvgSalesPerCustomer56d, t2.AvgSalesPerCustomer84d,
+
+    -- Customer features
+    t3.QtdCustomers7d, t3.QtdCustomers14d, t3.QtdCustomers28d, t3.QtdCustomers42d, t3.QtdCustomers56d, t3.QtdCustomers84d,
+    t3.AvgCustomers7d, t3.AvgCustomers14d, t3.AvgCustomers28d, t3.AvgCustomers42d, t3.AvgCustomers56d, t3.AvgCustomers84d,
+    t3.MinCustomers7d, t3.MinCustomers14d, t3.MinCustomers28d, t3.MinCustomers42d, t3.MinCustomers56d, t3.MinCustomers84d,
+    t3.MaxCustomers7d, t3.MaxCustomers14d, t3.MaxCustomers28d, t3.MaxCustomers42d, t3.MaxCustomers56d, t3.MaxCustomers84d,
+
+    -- Customers during promotion
+    t3.QtdCustomersPromo7d, t3.QtdCustomersPromo14d, t3.QtdCustomersPromo28d, t3.QtdCustomersPromo42d, t3.QtdCustomersPromo56d, t3.QtdCustomersPromo84d,
+    t3.AvgCustomersPromo7d, t3.AvgCustomersPromo14d, t3.AvgCustomersPromo28d, t3.AvgCustomersPromo42d, t3.AvgCustomersPromo56d, t3.AvgCustomersPromo84d,
+    t3.MinCustomersPromo7d, t3.MinCustomersPromo14d, t3.MinCustomersPromo28d, t3.MinCustomersPromo42d, t3.MinCustomersPromo56d, t3.MinCustomersPromo84d,
+    t3.MaxCustomersPromo7d, t3.MaxCustomersPromo14d, t3.MaxCustomersPromo28d, t3.MaxCustomersPromo42d, t3.MaxCustomersPromo56d, t3.MaxCustomersPromo84d,
+
+    -- Customers without promotion
+    t3.QtdCustomersNoPromo7d, t3.QtdCustomersNoPromo14d, t3.QtdCustomersNoPromo28d, t3.QtdCustomersNoPromo42d, t3.QtdCustomersNoPromo56d, t3.QtdCustomersNoPromo84d,
+    t3.AvgCustomersNoPromo7d, t3.AvgCustomersNoPromo14d, t3.AvgCustomersNoPromo28d, t3.AvgCustomersNoPromo42d, t3.AvgCustomersNoPromo56d, t3.AvgCustomersNoPromo84d,
+    t3.MinCustomersNoPromo7d, t3.MinCustomersNoPromo14d, t3.MinCustomersNoPromo28d, t3.MinCustomersNoPromo42d, t3.MinCustomersNoPromo56d, t3.MinCustomersNoPromo84d,
+    t3.MaxCustomersNoPromo7d, t3.MaxCustomersNoPromo14d, t3.MaxCustomersNoPromo28d, t3.MaxCustomersNoPromo42d, t3.MaxCustomersNoPromo56d, t3.MaxCustomersNoPromo84d,
+
+    -- Customer growth
+    t3.Growth_AvgCustomers_7d_vs_28d, t3.Growth_AvgCustomers_14d_vs_28d, t3.Growth_AvgCustomers_28d_vs_56d, t3.Growth_AvgCustomers_42d_vs_84d,
+    
+    -- Store features
+    t4.CompetitionOpen,
+    t4.Promo2Open,
+    t4.StoreType,
+    t4.Assortment,
+    t4.CompetitionDistance,
+
+    -- Temporal and calendar features
+    t5.DaysOpen7d, t5.DaysOpen14d, t5.DaysOpen28d, t5.DaysOpen42d, t5.DaysOpen56d, t5.DaysOpen84d,
+    t5.DaysClosed7d, t5.DaysClosed14d, t5.DaysClosed28d, t5.DaysClosed42d, t5.DaysClosed56d, t5.DaysClosed84d,
+    t5.DaysOpenRate7d, t5.DaysOpenRate14d, t5.DaysOpenRate28d, t5.DaysOpenRate42d, t5.DaysOpenRate56d, t5.DaysOpenRate84d,
+
+    t5.DaysPromo7d, t5.DaysPromo14d, t5.DaysPromo28d, t5.DaysPromo42d, t5.DaysPromo56d, t5.DaysPromo84d,
+    t5.DaysNoPromo7d, t5.DaysNoPromo14d, t5.DaysNoPromo28d, t5.DaysNoPromo42d, t5.DaysNoPromo56d, t5.DaysNoPromo84d,
+    t5.DaysPromoRate7d, t5.DaysPromoRate14d, t5.DaysPromoRate28d, t5.DaysPromoRate42d, t5.DaysPromoRate56d, t5.DaysPromoRate84d,
+
+    t5.DaysStateHoliday7d, t5.DaysStateHoliday14d, t5.DaysStateHoliday28d, t5.DaysStateHoliday42d, t5.DaysStateHoliday56d, t5.DaysStateHoliday84d,
+    t5.DaysStateHolidayRate7d, t5.DaysStateHolidayRate14d, t5.DaysStateHolidayRate28d, t5.DaysStateHolidayRate42d, t5.DaysStateHolidayRate56d, t5.DaysStateHolidayRate84d,
+
+    t5.DaysSchoolHoliday7d, t5.DaysSchoolHoliday14d, t5.DaysSchoolHoliday28d, t5.DaysSchoolHoliday42d, t5.DaysSchoolHoliday56d, t5.DaysSchoolHoliday84d,
+    t5.DaysSchoolHolidayRate7d, t5.DaysSchoolHolidayRate14d, t5.DaysSchoolHolidayRate28d, t5.DaysSchoolHolidayRate42d, t5.DaysSchoolHolidayRate56d, t5.DaysSchoolHolidayRate84d,
+    t5.MonthsSinceCompetition,
+
+    -- Prediction target
+    t1.Target
+
+FROM tb_target AS t1
+
+LEFT JOIN fs_sales AS t2
+    ON t1.IdStore = t2.IdStore AND t1.DtRef = t2.DtRef
+
+LEFT JOIN fs_customer AS t3
+    ON t1.IdStore = t3.IdStore AND t1.DtRef = t3.DtRef
+
+LEFT JOIN fs_store AS t4
+    ON t1.IdStore = t4.IdStore AND t1.DtRef = t4.DtRef
+
+LEFT JOIN fs_temporal AS t5
+    ON t1.IdStore = t5.IdStore AND t1.DtRef = t5.DtRef
