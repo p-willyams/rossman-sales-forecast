@@ -8,7 +8,7 @@ from preprocessing import NullImputer
 
 
 def is_nonbinary_numeric(col, X, categorical_cols):
-    # Verifica se coluna é numérica não binária (e não categórica/nem target)
+    # Checks if a column is numeric, non-binary, and not categorical/target
     if col in categorical_cols or col == "Target":
         return False
     unique_vals = X[col].nunique(dropna=True)
@@ -17,18 +17,18 @@ def is_nonbinary_numeric(col, X, categorical_cols):
     return pd.api.types.is_numeric_dtype(X[col])
 
 
-# Conexão com banco e leitura da ABT (Analytical Base Table)
-engine = sqlalchemy.create_engine("sqlite:///data/feature_store.db")
+# Connect to the database and read the ABT (Analytical Base Table)
+engine = sqlalchemy.create_engine("sqlite:///../../../data/feature_store.db")
 with open("src/03-train/abt.sql", "r") as f:
     abt_query = f.read()
 df = pd.read_sql(abt_query, engine)
 df = df[df["Target"].notnull()].copy()
 
-# Divide features e target
+# Split features and target
 X = df.drop(columns=["Target", "DtRef", "IdStore"])
 y = df["Target"]
 
-# Preprocessamento: define colunas categóricas/numéricas
+# Preprocessing: define categorical and numerical columns
 categorical_cols = ["StoreType", "Assortment"]
 encoder = OneHotEncoder(handle_unknown="ignore", dtype="float32", sparse_output=False)
 numerical_cols = [
@@ -36,7 +36,7 @@ numerical_cols = [
 ]
 scaler = MinMaxScaler()
 
-# Pipeline de pré-processamento
+# Preprocessing pipeline
 preprocessing_pipeline = Pipeline(
     [
         ("null_imputer", NullImputer()),
@@ -54,7 +54,7 @@ preprocessing_pipeline = Pipeline(
     ]
 )
 
-# Pipeline final: pré-processamento + modelo XGBoost
+# Final pipeline: preprocessing + XGBoost model
 final_pipeline_xgb = Pipeline(
     [
         ("preprocessing", preprocessing_pipeline),
@@ -77,7 +77,7 @@ final_pipeline_xgb = Pipeline(
     ]
 )
 
-# Treina e salva o modelo
+# Train and save the model
 final_pipeline_xgb.fit(X, y)
 model_series = pd.Series(
     {

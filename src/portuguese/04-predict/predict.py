@@ -11,7 +11,7 @@ from preprocessing import NullImputer
 model_series = pd.read_pickle("models/xgb_store_forecast")
 
 # Conexão com a base de dados
-db_engine = sqlalchemy.create_engine("sqlite:///data/feature_store.db")
+db_engine = sqlalchemy.create_engine("sqlite:///../../../data/feature_store.db")
 
 # Lê a base analítica (ABT)
 with open("src/03-train/abt.sql", "r") as f:

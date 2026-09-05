@@ -45,8 +45,8 @@ def date_range(start, stop):
 
 
 # Engines de conexão com os bancos
-ORIGIN = sqlalchemy.create_engine("sqlite:///../../data/database.db")
-TARGET = sqlalchemy.create_engine("sqlite:///../../data/feature_store.db")
+ORIGIN = sqlalchemy.create_engine("sqlite:///../../../data/database.db")
+TARGET = sqlalchemy.create_engine("sqlite:///../../../data/feature_store.db")
 
 # Argumentos de linha de comando
 parser = argparse.ArgumentParser(description="Ingest features into the feature store.")
