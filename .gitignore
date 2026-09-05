@@ -1,2 +1,2 @@
 data/feature_store.db
-src/03-train/train.csv
+models/xgb_store_forecast
